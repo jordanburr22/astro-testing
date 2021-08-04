@@ -1,0 +1,28 @@
+---
+export let collection;
+
+export let async createCollection() => {
+    return {
+        async data() {
+            const episodes = await fetch('https://www.learnwithjason.dev/api/schedule')
+        .then(res => res.json());
+
+            return episodes;
+        },
+        pageSize: 1,
+        routes: episodes.map(episode => ({ slug: episode.slug.current})),
+        permalink: (({ slug }) => `/schedule/episodes/${slug}`)
+    }
+}
+---
+<pre>
+
+{JSON.stringify(collection)}
+</pre>
+
+<style>
+    pre {
+        width: 500px;
+        overflow-x: scroll;
+    }
+</style>
